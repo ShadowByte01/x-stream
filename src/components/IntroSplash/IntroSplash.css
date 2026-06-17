@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap');
+
+.intro-splash-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  perspective: 1200px; /* Strong 3D perspective for the camera zoom effect */
+  transition: opacity 0.8s ease-in-out;
+}
+
+.intro-splash-container.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* --- THE X ELEMENT --- */
+.cinematic-x-container {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cinematic-x {
+  font-family: 'Cinzel', serif;
+  color: #fff;
+  font-size: 18rem;
+  margin: 0;
+  line-height: 1;
+  text-shadow: 0 0 40px rgba(255, 255, 255, 0.8), 0 0 80px rgba(255, 255, 255, 0.4);
+  transform: scale(0.6) translateZ(0);
+  opacity: 0;
+  transition: all 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.cinematic-x-container.appear .cinematic-x {
+  transform: scale(1) translateZ(0);
+  opacity: 1;
+  text-shadow: 0 0 60px rgba(255, 255, 255, 1), 0 0 100px rgba(255, 255, 255, 0.8);
+}
+
+.cinematic-x-container.zoom-bars .cinematic-x {
+  animation: explodeX 2.5s cubic-bezier(0.5, 0, 0.1, 1) forwards;
+}
+
+@keyframes explodeX {
+  0% {
+    transform: scale(1) translateZ(0);
+    opacity: 1;
+  }
+  30% {
+    transform: scale(3) translateZ(200px);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(10) translateZ(800px);
+    opacity: 0;
+  }
+}
+
+/* --- THE SPECTRUM BARS --- */
+.spectrum-bars-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 5vw; /* Initially grouped tightly in the center */
+  height: 20vh;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  opacity: 0;
+}
+
+.spectrum-bars-container.zoom-bars {
+  opacity: 1;
+  /* Animate the container expanding sideways and rushing towards camera */
+  animation: zoomContainer 3s cubic-bezier(0.4, 0, 0.1, 1) forwards;
+}
+
+@keyframes zoomContainer {
+  0% {
+    transform: translate(-50%, -50%) scale(1) translateZ(-400px);
+    width: 5vw;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(25) translateZ(600px);
+    width: 250vw; /* Spreads out across the entire screen horizontally */
+  }
+}
+
+.spectrum-bar {
+  flex: 1;
+  margin: 0 2px; /* Slight gap between ribbons */
+  transform: scaleY(0.1);
+  opacity: 0;
+}
+
+.spectrum-bars-container.zoom-bars .spectrum-bar {
+  animation-name: stretchBar;
+  animation-duration: 2.8s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation-fill-mode: forwards;
+}
+
+@keyframes stretchBar {
+  0% {
+    transform: scaleY(0.1);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(40); /* Stretches immensely in height */
+    opacity: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .cinematic-x {
+    font-size: 8rem;
+  }
+}

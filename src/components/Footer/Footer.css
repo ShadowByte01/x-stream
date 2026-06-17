@@ -1,0 +1,133 @@
+.footer-container {
+  background-color: var(--color-bg-base);
+  border-top: 1px solid var(--color-glass-border);
+  padding: 4rem var(--spacing-main) 2rem;
+  margin-top: 2rem;
+  color: var(--color-text-secondary);
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.footer-logo-img {
+  height: 40px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+.footer-logo-text {
+  font-size: 2rem;
+  color: var(--color-text-primary);
+  margin-bottom: 1rem;
+}
+
+.footer-tagline {
+  font-size: 0.9rem;
+  max-width: 300px;
+  line-height: 1.5;
+}
+
+.footer-links-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4rem;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.footer-column h4 {
+  color: var(--color-text-primary);
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.footer-column a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.footer-column a:hover {
+  color: var(--color-text-primary);
+}
+
+.footer-column a.highlight-link {
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--color-glass-border);
+  padding-top: 2rem;
+  font-size: 0.8rem;
+  gap: 0.5rem;
+}
+
+.footer-disclaimer {
+  width: 100%;
+  text-align: center;
+  font-size: 0.75rem;
+  color: #444;
+  margin-top: 1rem;
+  line-height: 1.5;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.social-icon {
+  color: var(--color-text-secondary);
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.footer-copyright-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.footer-watermark {
+  font-size: 0.75rem;
+  color: #555;
+  font-family: monospace;
+  letter-spacing: 1px;
+}
+
+.footer-socials svg:hover {
+  color: var(--color-text-primary);
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}

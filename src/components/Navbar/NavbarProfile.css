@@ -1,0 +1,91 @@
+/* Append or update Navbar profile styles */
+.nav-signin-btn {
+  background: #e50914;
+  color: white;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.nav-signin-btn:hover {
+  background: #c11119;
+}
+
+.nav-profile {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.profile-menu-container {
+  position: relative;
+  cursor: pointer;
+}
+
+.profile-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.profile-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 10px;
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  width: 200px;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+}
+
+.dropdown-arrow {
+  position: absolute;
+  top: -7px;
+  right: 15px;
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid rgba(255, 255, 255, 0.8);
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  color: #fff;
+  font-size: 0.85rem;
+  transition: background 0.2s;
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  text-decoration: underline;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.15);
+  margin: 5px 0;
+}
+
+.sign-out {
+  font-weight: 500;
+}

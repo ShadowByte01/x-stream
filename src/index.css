@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  /* Core Colors */
+  --color-bg-base: #050505;
+  --color-bg-elevated: #111111;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #a3a3a3;
+  --color-accent-glow: rgba(255, 255, 255, 0.2);
+  --color-silver-glow: rgba(192, 192, 192, 0.2);
+  --color-glass-bg: rgba(15, 15, 15, 0.5);
+  --color-glass-border: rgba(255, 255, 255, 0.1);
+  
+  /* Typography */
+  --font-primary: 'Inter', sans-serif;
+  
+  /* Layout */
+  --nav-height: 80px;
+  --spacing-main: 4vw;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
+  font-family: var(--font-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-base);
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: var(--color-glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-glass-border);
+}
+
+/* Glow Utilities - Toned Down */
+.glow-text {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.glow-box {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.glow-button {
+  background: #fff;
+  color: #000;
+  border: none;
+  font-family: var(--font-primary);
+  font-weight: 600;
+  padding: 0.8rem 2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.glow-button:hover {
+  transform: scale(1.03);
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.glow-button.secondary {
+  background: rgba(109, 109, 110, 0.7);
+  color: white;
+}
+
+.glow-button.secondary:hover {
+  background: rgba(109, 109, 110, 0.9);
+  transform: scale(1.03);
+}
