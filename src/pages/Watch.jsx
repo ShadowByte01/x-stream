@@ -253,6 +253,14 @@ const Watch = () => {
     return () => document.removeEventListener('fullscreenchange', handleFs);
   }, []);
 
+  const streamUrl = type === 'movie' 
+    ? activeSource.movieUrl(id) 
+    : activeSource.tvUrl(id, selectedSeason, selectedEpisode);
+
+  const title = details?.title || details?.name || '';
+  const totalSeasons = details?.number_of_seasons || 0;
+  const totalEpisodes = details?.seasons?.find(s => s.season_number === selectedSeason)?.episode_count || 0;
+
   // Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -284,14 +292,6 @@ const Watch = () => {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [activeSource, type, selectedEpisode, selectedSeason, totalEpisodes, totalSeasons]);
-
-  const streamUrl = type === 'movie' 
-    ? activeSource.movieUrl(id) 
-    : activeSource.tvUrl(id, selectedSeason, selectedEpisode);
-
-  const title = details?.title || details?.name || '';
-  const totalSeasons = details?.number_of_seasons || 0;
-  const totalEpisodes = details?.seasons?.find(s => s.season_number === selectedSeason)?.episode_count || 0;
 
   if (loading) {
     return (
