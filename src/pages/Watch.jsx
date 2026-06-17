@@ -3,7 +3,9 @@ import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { fetchDetails, fetchExternalIds, fetchSimilar } from '../tmdb';
 import { ArrowLeft, Maximize2, Minimize2, Tv, Film, AlertTriangle, ChevronDown, CheckCircle2, XCircle, Loader2, Download } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useUserData } from '../hooks/useUserData';
 import { supabase } from '../supabaseClient';
+import { getImageUrl } from '../tmdb';
 import MovieCard from '../components/MovieCard/MovieCard';
 import './Watch.css';
 
@@ -100,6 +102,7 @@ const Watch = () => {
   const [serverStatuses, setServerStatuses] = useState({});
 
   const { user } = useAuth();
+  const { addToHistory } = useUserData();
 
   const playerContainerRef = useRef(null);
   const menuRef = useRef(null);
@@ -127,6 +130,18 @@ const Watch = () => {
       try {
         const detailsData = await fetchDetails(type, id);
         setDetails(detailsData);
+        
+        // Log to watch history
+        if (detailsData) {
+          addToHistory({
+            id: detailsData.id,
+            media_type: type,
+            title: detailsData.title || detailsData.name,
+            imageSrc: getImageUrl(detailsData.poster_path),
+            releaseYear: (detailsData.release_date || detailsData.first_air_date || '').substring(0, 4),
+            rating: detailsData.vote_average || 0
+          });
+        }
         
         const similarData = await fetchSimilar(type, id);
         setSimilarContent(similarData.slice(0, 10)); // Top 10 similar

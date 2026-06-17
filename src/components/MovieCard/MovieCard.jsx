@@ -3,15 +3,28 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
-import { Play, Plus, Star } from 'lucide-react';
+import { Play, Plus, Check, Star } from 'lucide-react';
+import { useUserData } from '../../hooks/useUserData';
 import './MovieCard.css';
 
 const MovieCard = ({ imageSrc, title, rank, id, media_type, releaseYear, rating }) => {
   const navigate = useNavigate();
+  const { isInWishlist, addToWishlist, removeFromWishlist } = useUserData();
 
   const handleClick = () => {
     if (id) {
       navigate(`/details/${media_type || 'movie'}/${id}`);
+    }
+  };
+
+  const inWishlist = isInWishlist(id, media_type || 'movie');
+
+  const handleWishlistClick = async (e) => {
+    e.stopPropagation();
+    if (inWishlist) {
+      await removeFromWishlist(id, media_type || 'movie');
+    } else {
+      await addToWishlist({ id, title, imageSrc, media_type: media_type || 'movie', releaseYear, rating });
     }
   };
 
@@ -50,8 +63,8 @@ const MovieCard = ({ imageSrc, title, rank, id, media_type, releaseYear, rating 
             <button className="icon-btn play-btn" onClick={(e) => { e.stopPropagation(); if (id) navigate(`/watch/${media_type || 'movie'}/${id}`); }}>
               <Play fill="black" size={16} />
             </button>
-            <button className="icon-btn add-btn" onClick={(e) => e.stopPropagation()}>
-              <Plus size={16} />
+            <button className="icon-btn add-btn" onClick={handleWishlistClick}>
+              {inWishlist ? <Check size={16} /> : <Plus size={16} />}
             </button>
           </div>
         </div>

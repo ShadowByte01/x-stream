@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchDetails, fetchCredits, fetchWatchProviders, fetchSimilar, fetchVideos, fetchKeywords, getImageUrl } from '../tmdb';
-import { Play, ArrowLeft, User, Star, Clock, Calendar, Globe, DollarSign, Film, Tv, ExternalLink } from 'lucide-react';
+import { Play, ArrowLeft, User, Star, Clock, Calendar, Globe, DollarSign, Film, Tv, ExternalLink, Plus, Check } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useUserData } from '../hooks/useUserData';
 import './Details.css';
 
 const Details = () => {
@@ -15,6 +16,7 @@ const Details = () => {
   const [videos, setVideos] = useState([]);
   const [keywords, setKeywords] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { isInWishlist, addToWishlist, removeFromWishlist } = useUserData();
 
   useEffect(() => {
     const getData = async () => {
@@ -74,6 +76,23 @@ const Details = () => {
   const formatDate = (dateStr) => {
     if (!dateStr) return '';
     return new Date(dateStr).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  };
+
+  const inWishlist = isInWishlist(Number(id), type);
+
+  const handleWishlistClick = async () => {
+    if (inWishlist) {
+      await removeFromWishlist(Number(id), type);
+    } else {
+      await addToWishlist({ 
+        id: Number(id), 
+        title, 
+        imageSrc: posterUrl, 
+        media_type: type, 
+        releaseYear, 
+        rating 
+      });
+    }
   };
 
   return (
@@ -142,6 +161,10 @@ const Details = () => {
                     <span>Trailer</span>
                   </a>
                 )}
+                <button className="glow-button secondary" onClick={handleWishlistClick} style={{ padding: '10px 16px' }}>
+                  {inWishlist ? <Check size={18} /> : <Plus size={18} />}
+                  <span>{inWishlist ? 'My List' : 'My List'}</span>
+                </button>
               </div>
             </div>
           </div>
