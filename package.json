@@ -13,9 +13,12 @@
     "@marsidev/react-turnstile": "^1.5.3",
     "@supabase/supabase-js": "^2.108.1",
     "axios": "^1.17.0",
+    "fast-average-color": "^9.5.2",
+    "framer-motion": "^12.40.0",
     "lucide-react": "^1.17.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
+    "react-lazy-load-image-component": "^1.6.3",
     "react-router-dom": "^7.17.0"
   },
   "devDependencies": {

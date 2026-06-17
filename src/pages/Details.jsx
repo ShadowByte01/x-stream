@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchDetails, fetchCredits, fetchWatchProviders, fetchSimilar, fetchVideos, fetchKeywords, getImageUrl } from '../tmdb';
 import { Play, ArrowLeft, User, Star, Clock, Calendar, Globe, DollarSign, Film, Tv, ExternalLink } from 'lucide-react';
+import { motion } from 'framer-motion';
 import './Details.css';
 
 const Details = () => {
@@ -76,7 +77,7 @@ const Details = () => {
   };
 
   return (
-    <div className="details-page">
+    <motion.div className="details-page" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
       {/* Hero Section */}
       <div className="details-hero" style={{ backgroundImage: `url(${backdropUrl})` }}>
         <div className="details-vignette"></div>
@@ -155,7 +156,7 @@ const Details = () => {
           <h2 className="section-title">Top Cast</h2>
           <div className="cast-grid">
             {topCast.map(actor => (
-              <div key={actor.id} className="cast-card">
+              <div key={actor.id} className="cast-card" onClick={() => navigate(`/person/${actor.id}`)} style={{ cursor: 'pointer' }}>
                 {actor.profile_path ? (
                   <img src={getImageUrl(actor.profile_path, 'w185')} alt={actor.name} className="cast-image" />
                 ) : (
@@ -284,7 +285,7 @@ const Details = () => {
             <h2 className="section-title">Production</h2>
             <div className="production-grid">
               {details.production_companies.map(company => (
-                <div key={company.id} className="production-card">
+                <div key={company.id} className="production-card" onClick={() => navigate(`/company/${company.id}`)} style={{ cursor: 'pointer' }}>
                   {company.logo_path ? (
                     <img src={getImageUrl(company.logo_path, 'w154')} alt={company.name} className="production-logo" />
                   ) : (
@@ -366,7 +367,7 @@ const Details = () => {
         )}
 
       </div>
-    </div>
+    </motion.div>
   );
 };
 

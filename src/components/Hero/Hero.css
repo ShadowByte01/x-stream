@@ -7,6 +7,16 @@
   overflow: hidden;
 }
 
+.hero-color-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0.35;
+  mix-blend-mode: screen;
+  transition: background 1.5s ease;
+  pointer-events: none;
+}
+
 .hero-background {
   position: absolute;
   top: 0;
@@ -45,39 +55,84 @@
 
 .hero-content {
   position: relative;
-  z-index: 2;
+  z-index: 5;
   width: 100%;
-  max-width: 600px;
+  max-width: 650px;
   padding: 0 var(--spacing-main);
-  transform: translateY(20px);
-  opacity: 0;
-  animation: fadeUp 1s ease forwards;
-  animation-delay: 0.3s;
 }
 
-@keyframes fadeUp {
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+.hero-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+
+.hero-badge-icon {
+  width: 24px;
+  height: 24px;
+  background: var(--accent-color);
+  color: white;
+  font-weight: 900;
+  font-size: 11px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(229, 9, 20, 0.5);
+}
+
+.hero-badge-text {
+  color: var(--color-text-secondary);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.hero-meta-chips {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.hero-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(30, 30, 30, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
 }
 
 .hero-title {
-  font-size: 5rem;
+  font-size: 4.5rem;
   font-weight: 900;
-  line-height: 1.1;
-  margin-bottom: 1.5rem;
+  line-height: 1.05;
+  margin-bottom: 1rem;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
 }
 
 .hero-description {
-  font-size: 1.2rem;
+  font-size: 1.05rem;
   line-height: 1.6;
   color: var(--color-text-secondary);
   margin-bottom: 2rem;
   text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-  max-width: 600px;
+  max-width: 550px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .hero-buttons {
@@ -85,42 +140,63 @@
   gap: 1rem;
 }
 
-.hero-nav-btn {
+/* Thumbnail strip (desktop, bottom-right) */
+.hero-thumbnails {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: transparent;
-  color: rgba(255, 255, 255, 0.5);
-  border: none;
-  cursor: pointer;
+  bottom: 8vh;
+  right: var(--spacing-main);
   z-index: 10;
+  display: none;
+  gap: 10px;
+  overflow-x: auto;
+  max-width: 40vw;
+  padding: 6px;
+}
+
+@media (min-width: 1024px) {
+  .hero-thumbnails {
+    display: flex;
+  }
+}
+
+.hero-thumb {
+  flex: 0 0 130px;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  opacity: 0.5;
   transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
-.hero-nav-btn:hover {
-  color: white;
-  background: rgba(0, 0, 0, 0.3);
+.hero-thumb.active {
+  border-color: var(--accent-color);
+  opacity: 1;
+  box-shadow: 0 4px 20px rgba(229, 9, 20, 0.3);
 }
 
-.hero-nav-btn.left {
-  left: 0;
+.hero-thumb:hover {
+  opacity: 0.9;
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
-.hero-nav-btn.right {
-  right: 0;
+.hero-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
 }
 
+/* Indicators */
 .hero-indicators {
   position: absolute;
   bottom: 12vh;
   left: var(--spacing-main);
   display: flex;
   gap: 10px;
-  z-index: 3;
+  z-index: 10;
 }
 
 .hero-dot {
@@ -133,9 +209,9 @@
 }
 
 .hero-dot.active {
-  width: 24px;
-  background: #fff;
-  box-shadow: 0 0 10px rgba(255,255,255,0.8);
+  width: 28px;
+  background: var(--accent-color);
+  box-shadow: 0 0 12px var(--accent-color);
 }
 
 .hero-dot:hover {
@@ -143,10 +219,21 @@
 }
 
 @keyframes subtleZoom {
-  from {
-    transform: scale(1);
+  from { transform: scale(1); }
+  to { transform: scale(1.05); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+    letter-spacing: 0;
   }
-  to {
-    transform: scale(1.05);
+  .hero-description {
+    font-size: 0.9rem;
+    -webkit-line-clamp: 2;
+  }
+  .hero-indicators {
+    bottom: 6vh;
   }
 }

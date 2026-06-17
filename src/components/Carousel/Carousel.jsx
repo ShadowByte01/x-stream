@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 import MovieCard from '../MovieCard/MovieCard';
 import './Carousel.css';
 
@@ -14,7 +15,13 @@ const Carousel = ({ title, movies, isNumbered }) => {
   };
 
   return (
-    <div className="carousel-section">
+    <motion.div 
+      className="carousel-section"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+    >
       <h2 className="carousel-title">{title}</h2>
       <div className="carousel-container">
         <button className="carousel-btn left" onClick={() => scroll('left')}>
@@ -23,7 +30,7 @@ const Carousel = ({ title, movies, isNumbered }) => {
         
         <div className="carousel-slider" ref={sliderRef}>
           {movies.map((movie, index) => (
-            <div key={index} className={isNumbered ? 'numbered-wrapper' : 'standard-wrapper'}>
+            <div key={movie.id || index} className={isNumbered ? 'numbered-wrapper' : 'standard-wrapper'}>
               <MovieCard 
                 imageSrc={movie.imageSrc} 
                 title={movie.title} 
@@ -31,6 +38,7 @@ const Carousel = ({ title, movies, isNumbered }) => {
                 id={movie.id}
                 media_type={movie.media_type || 'movie'}
                 releaseYear={movie.releaseYear}
+                rating={movie.rating}
               />
             </div>
           ))}
@@ -40,7 +48,7 @@ const Carousel = ({ title, movies, isNumbered }) => {
           <ChevronRight size={32} />
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

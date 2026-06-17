@@ -87,3 +87,73 @@ export const fetchExternalIds = async (type, id) => {
   const { data } = await tmdbApi.get(`/${type}/${id}/external_ids`);
   return data;
 };
+
+// --- New functions for upgraded features ---
+
+export const fetchTrendingTV = async () => {
+  const { data } = await tmdbApi.get('/trending/tv/week');
+  return data.results;
+};
+
+export const fetchTrendingAll = async () => {
+  const { data } = await tmdbApi.get('/trending/all/week');
+  return data.results;
+};
+
+export const fetchNowPlaying = async () => {
+  const { data } = await tmdbApi.get('/movie/now_playing');
+  return data.results;
+};
+
+export const fetchPersonDetails = async (id) => {
+  const { data } = await tmdbApi.get(`/person/${id}`, {
+    params: { append_to_response: 'movie_credits,tv_credits' }
+  });
+  return data;
+};
+
+export const fetchCompanyDetails = async (id) => {
+  const { data } = await tmdbApi.get(`/company/${id}`);
+  return data;
+};
+
+export const fetchCompanyMovies = async (id) => {
+  const { data } = await tmdbApi.get('/discover/movie', {
+    params: { with_companies: id, sort_by: 'popularity.desc' }
+  });
+  return data.results;
+};
+
+export const fetchGenreList = async (type = 'movie') => {
+  const { data } = await tmdbApi.get(`/genre/${type}/list`);
+  return data.genres || [];
+};
+
+export const fetchDiscoverByGenre = async (type, genreId, page = 1) => {
+  const { data } = await tmdbApi.get(`/discover/${type}`, {
+    params: { with_genres: genreId, sort_by: 'popularity.desc', page }
+  });
+  return data;
+};
+
+export const fetchCollection = async (id) => {
+  const { data } = await tmdbApi.get(`/collection/${id}`);
+  return data;
+};
+
+export const searchMultiPaginated = async (query, page = 1) => {
+  const { data } = await tmdbApi.get('/search/multi', {
+    params: { query, page }
+  });
+  return data;
+};
+
+export const fetchDetailsFull = async (type, id) => {
+  const appendStr = type === 'movie'
+    ? 'credits,videos,images,reviews,keywords,release_dates,watch/providers'
+    : 'credits,videos,images,reviews,keywords,content_ratings,watch/providers';
+  const { data } = await tmdbApi.get(`/${type}/${id}`, {
+    params: { append_to_response: appendStr }
+  });
+  return data;
+};

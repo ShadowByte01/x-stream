@@ -10,6 +10,7 @@
   --color-silver-glow: rgba(192, 192, 192, 0.2);
   --color-glass-bg: rgba(15, 15, 15, 0.5);
   --color-glass-border: rgba(255, 255, 255, 0.1);
+  --accent-color: #E50914;
   
   /* Typography */
   --font-primary: 'Inter', sans-serif;
@@ -96,3 +97,16 @@ body {
   background: rgba(109, 109, 110, 0.9);
   transform: scale(1.03);
 }
+
+/* Global spinner animation */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Mobile bottom padding for nav bar clearance */
+@media (max-width: 768px) {
+  .app-container {
+    padding-bottom: 60px;
+  }
+}
+

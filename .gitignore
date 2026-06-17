@@ -24,3 +24,8 @@ dist-ssr
 *.sw?
 
 .vercel
+
+# Reference/study materials (not part of project)
+example study for making site better/
+.antigravityignore
+.gemini/

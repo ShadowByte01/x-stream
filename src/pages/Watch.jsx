@@ -215,6 +215,38 @@ const Watch = () => {
     return () => document.removeEventListener('fullscreenchange', handleFs);
   }, []);
 
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      const key = e.key.toLowerCase();
+      
+      if (key === 'f') {
+        toggleFullscreen();
+      }
+      if (key === 's') {
+        // Cycle to next server
+        const currentIdx = SOURCES.findIndex(s => s.id === activeSource.id);
+        const nextIdx = (currentIdx + 1) % SOURCES.length;
+        setActiveSource(SOURCES[nextIdx]);
+        setIframeLoaded(false);
+      }
+      if (key === 'n' && type === 'tv') {
+        // Next episode
+        if (selectedEpisode < totalEpisodes) {
+          setSelectedEpisode(prev => prev + 1);
+          setIframeLoaded(false);
+        } else if (selectedSeason < totalSeasons) {
+          setSelectedSeason(prev => prev + 1);
+          setSelectedEpisode(1);
+          setIframeLoaded(false);
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeSource, type, selectedEpisode, selectedSeason, totalEpisodes, totalSeasons]);
+
   const streamUrl = type === 'movie' 
     ? activeSource.movieUrl(id) 
     : activeSource.tvUrl(id, selectedSeason, selectedEpisode);
