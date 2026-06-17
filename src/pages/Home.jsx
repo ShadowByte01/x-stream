@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Hero from '../components/Hero/Hero';
 import Carousel from '../components/Carousel/Carousel';
 import { fetchTrending, fetchTopRated, fetchUpcoming, fetchAnimationMovies, fetchTrendingTV, fetchNowPlaying, fetchActionMovies, getImageUrl } from '../tmdb';
+import { Flame, Star, Tv, Clapperboard, Zap, Calendar, Sparkles } from 'lucide-react';
 
 const Home = () => {
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -58,19 +59,19 @@ const Home = () => {
       )}
 
       <div style={{ marginTop: '-10vh', paddingBottom: '10vh' }}>
-        <Carousel title="🔥 Trending Today" movies={trendingMovies} isNumbered={true} />
-        <Carousel title="⭐ Top Rated Movies" movies={topRatedMovies} isNumbered={true} />
+        <Carousel title={<span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Flame size={24} color="#f97316"/> Trending Today</span>} movies={trendingMovies} isNumbered={true} />
+        <Carousel title={<span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Star size={24} color="#eab308"/> Top Rated Movies</span>} movies={topRatedMovies} isNumbered={true} />
         {trendingTV.length > 0 && (
-          <Carousel title="📺 Trending TV Shows" movies={trendingTV} isNumbered={false} />
+          <Carousel title={<span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Tv size={24} color="#3b82f6"/> Trending TV Shows</span>} movies={trendingTV} isNumbered={false} />
         )}
         {nowPlaying.length > 0 && (
-          <Carousel title="🎬 Now Playing in Theaters" movies={nowPlaying} isNumbered={false} />
+          <Carousel title={<span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Clapperboard size={24} color="#ef4444"/> Now Playing in Theaters</span>} movies={nowPlaying} isNumbered={false} />
         )}
         {actionMovies.length > 0 && (
-          <Carousel title="💥 Action Movies" movies={actionMovies} isNumbered={false} />
+          <Carousel title={<span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Zap size={24} color="#eab308"/> Action Movies</span>} movies={actionMovies} isNumbered={false} />
         )}
-        <Carousel title="📅 Upcoming Releases" movies={upcomingMovies} isNumbered={false} />
-        <Carousel title="✨ Trending Animation" movies={animationMovies} isNumbered={false} />
+        <Carousel title={<span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Calendar size={24} color="#8b5cf6"/> Upcoming Releases</span>} movies={upcomingMovies} isNumbered={false} />
+        <Carousel title={<span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Sparkles size={24} color="#f43f5e"/> Trending Animation</span>} movies={animationMovies} isNumbered={false} />
       </div>
     </>
   );

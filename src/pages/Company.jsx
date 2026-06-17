@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchCompanyDetails, fetchCompanyMovies, getImageUrl } from '../tmdb';
-import { ArrowLeft, ExternalLink } from 'lucide-react';
+import { ArrowLeft, ExternalLink, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
@@ -61,7 +61,7 @@ const Company = () => {
         <div className="company-info">
           <h1 className="company-name">{company.name}</h1>
           <span className="company-label">Production Studio</span>
-          {company.headquarters && <p className="company-hq">📍 {company.headquarters}</p>}
+          {company.headquarters && <p className="company-hq"><MapPin size={14} style={{ display: 'inline', verticalAlign: 'middle', marginRight: '4px' }} /> {company.headquarters}</p>}
           {company.homepage && (
             <a href={company.homepage} target="_blank" rel="noreferrer" className="company-link">
               Visit Official Website <ExternalLink size={14} />

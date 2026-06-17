@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Trophy, Zap } from 'lucide-react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { fetchGenreList, fetchDiscoverByGenre, fetchTopRated, fetchActionMovies, getImageUrl } from '../tmdb';
@@ -105,8 +106,8 @@ const Movies = () => {
         </div>
       ) : (
         <>
-          <Carousel title="🏆 Critically Acclaimed" movies={topMovies} isNumbered={true} />
-          <Carousel title="💥 Action Blockbusters" movies={actionMovies} isNumbered={false} />
+          <Carousel title={<span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Trophy size={24} color="#eab308"/> Critically Acclaimed</span>} movies={topMovies} isNumbered={true} />
+          <Carousel title={<span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Zap size={24} color="#f97316"/> Action Blockbusters</span>} movies={actionMovies} isNumbered={false} />
         </>
       )}
     </motion.div>

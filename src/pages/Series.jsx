@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Flame, Star } from 'lucide-react';
 import { fetchGenreList, fetchDiscoverByGenre, getImageUrl } from '../tmdb';
 import Carousel from '../components/Carousel/Carousel';
 import MovieCard from '../components/MovieCard/MovieCard';
@@ -89,8 +90,8 @@ const Series = () => {
         </div>
       ) : (
         <>
-          <Carousel title="🔥 Popular Series" movies={popularSeries} isNumbered={false} />
-          <Carousel title="⭐ Top Rated Series" movies={topRatedSeries} isNumbered={false} />
+          <Carousel title={<span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Flame size={24} color="#f97316"/> Popular Series</span>} movies={popularSeries} isNumbered={false} />
+          <Carousel title={<span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Star size={24} color="#eab308"/> Top Rated Series</span>} movies={topRatedSeries} isNumbered={false} />
         </>
       )}
     </motion.div>

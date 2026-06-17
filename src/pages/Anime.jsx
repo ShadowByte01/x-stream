@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Sparkles } from 'lucide-react';
 import { fetchGenreList, fetchDiscoverByGenre, fetchAnimationMovies, getImageUrl } from '../tmdb';
 import Carousel from '../components/Carousel/Carousel';
 import MovieCard from '../components/MovieCard/MovieCard';
@@ -83,7 +84,7 @@ const Anime = () => {
           )}
         </div>
       ) : (
-        <Carousel title="✨ Trending Anime" movies={animeMovies} isNumbered={false} />
+        <Carousel title={<span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Sparkles size={24} color="#f43f5e"/> Trending Anime</span>} movies={animeMovies} isNumbered={false} />
       )}
     </motion.div>
   );

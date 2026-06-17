@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import { fetchDetails, fetchExternalIds, fetchSimilar } from '../tmdb';
-import { ArrowLeft, Maximize2, Minimize2, Tv, Film, AlertTriangle, ChevronDown, CheckCircle2, XCircle, Loader2, Download } from 'lucide-react';
+import { ArrowLeft, Maximize2, Minimize2, Tv, Film, AlertTriangle, ChevronDown, CheckCircle2, XCircle, Loader2, Download, Zap, Star, MapPin, Globe } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useUserData } from '../hooks/useUserData';
 import { supabase } from '../supabaseClient';
@@ -26,41 +26,41 @@ const BACKENDS = [
 // Server display names mapped to backend indices
 const SERVER_CONFIGS = [
   // --- Xstream branded ---
-  { name: 'Xstream', flag: '⚡', backendIdx: 0 },
-  { name: 'Xstream Pro', flag: '⚡', backendIdx: 1 },
-  { name: 'Xstream Premium', flag: '🌟', backendIdx: 2 },
-  { name: 'Xstream Ultra', flag: '⚡', backendIdx: 3 },
-  { name: 'Xstream Max', flag: '⚡', backendIdx: 4 },
+  { name: 'Xstream', flag: <Zap size={14} />, backendIdx: 0 },
+  { name: 'Xstream Pro', flag: <Zap size={14} />, backendIdx: 1 },
+  { name: 'Xstream Premium', flag: <Star size={14} fill="currentColor" />, backendIdx: 2 },
+  { name: 'Xstream Ultra', flag: <Zap size={14} />, backendIdx: 3 },
+  { name: 'Xstream Max', flag: <Zap size={14} />, backendIdx: 4 },
   
   // --- Additional Servers ---
-  { name: 'Turbo', flag: '🇺🇸', backendIdx: 0 },
-  { name: 'NHD', flag: '🇮🇳', backendIdx: 1 },
-  { name: '4K', flag: '🇬🇧', backendIdx: 2 },
-  { name: 'Premium', flag: '🇺🇸', backendIdx: 3 },
-  { name: 'MultiEmbed', flag: '🇦🇺', backendIdx: 4 },
-  { name: 'Atlas', flag: '🇺🇸', backendIdx: 0 },
-  { name: 'Vidsrc', flag: '🇺🇸', backendIdx: 1 },
-  { name: 'Nxsha', flag: '🇺🇸', backendIdx: 2 },
-  { name: 'Cinemaos', flag: '🇺🇸', backendIdx: 3 },
-  { name: 'Prime', flag: '🇺🇸', backendIdx: 4 },
-  { name: 'Streamflix', flag: '🇺🇸', backendIdx: 0 },
-  { name: 'Vidpro', flag: '🇬🇧', backendIdx: 2 },
-  { name: 'Nova', flag: '🇬🇧', backendIdx: 3 },
-  { name: 'Echo', flag: '🇺🇸', backendIdx: 4 },
-  { name: 'Bravo', flag: '🇬🇧', backendIdx: 0 },
-  { name: 'Vidking', flag: '🇺🇸', backendIdx: 2 },
-  { name: 'Drive', flag: '🇬🇧', backendIdx: 3 },
-  { name: 'Hdmovies', flag: '🇮🇳', backendIdx: 2 },
-  { name: 'Asia', flag: '🇮🇳', backendIdx: 0 },
-  { name: 'Spencer', flag: '🇺🇸', backendIdx: 3 },
-  { name: 'Lima', flag: '🇺🇸', backendIdx: 4 },
-  { name: 'Hindi', flag: '🇮🇳', backendIdx: 2 },
-  { name: 'Tamil', flag: '🇮🇳', backendIdx: 3 },
-  { name: 'Telugu', flag: '🇮🇳', backendIdx: 0 },
-  { name: 'Arab', flag: '🇸🇦', backendIdx: 2 },
-  { name: 'French', flag: '🇫🇷', backendIdx: 3 },
-  { name: 'Spanish', flag: '🇪🇸', backendIdx: 0 },
-  { name: 'Brazil', flag: '🇧🇷', backendIdx: 2 },
+  { name: 'Turbo', flag: <><MapPin size={12}/> US</>, backendIdx: 0 },
+  { name: 'NHD', flag: <><MapPin size={12}/> IN</>, backendIdx: 1 },
+  { name: '4K', flag: <><MapPin size={12}/> UK</>, backendIdx: 2 },
+  { name: 'Premium', flag: <><MapPin size={12}/> US</>, backendIdx: 3 },
+  { name: 'MultiEmbed', flag: <><MapPin size={12}/> AU</>, backendIdx: 4 },
+  { name: 'Atlas', flag: <><MapPin size={12}/> US</>, backendIdx: 0 },
+  { name: 'Vidsrc', flag: <><MapPin size={12}/> US</>, backendIdx: 1 },
+  { name: 'Nxsha', flag: <><MapPin size={12}/> US</>, backendIdx: 2 },
+  { name: 'Cinemaos', flag: <><MapPin size={12}/> US</>, backendIdx: 3 },
+  { name: 'Prime', flag: <><MapPin size={12}/> US</>, backendIdx: 4 },
+  { name: 'Streamflix', flag: <><MapPin size={12}/> US</>, backendIdx: 0 },
+  { name: 'Vidpro', flag: <><MapPin size={12}/> UK</>, backendIdx: 2 },
+  { name: 'Nova', flag: <><MapPin size={12}/> UK</>, backendIdx: 3 },
+  { name: 'Echo', flag: <><MapPin size={12}/> US</>, backendIdx: 4 },
+  { name: 'Bravo', flag: <><MapPin size={12}/> UK</>, backendIdx: 0 },
+  { name: 'Vidking', flag: <><MapPin size={12}/> US</>, backendIdx: 2 },
+  { name: 'Drive', flag: <><MapPin size={12}/> UK</>, backendIdx: 3 },
+  { name: 'Hdmovies', flag: <><MapPin size={12}/> IN</>, backendIdx: 2 },
+  { name: 'Asia', flag: <><MapPin size={12}/> IN</>, backendIdx: 0 },
+  { name: 'Spencer', flag: <><MapPin size={12}/> US</>, backendIdx: 3 },
+  { name: 'Lima', flag: <><MapPin size={12}/> US</>, backendIdx: 4 },
+  { name: 'Hindi', flag: <><MapPin size={12}/> IN</>, backendIdx: 2 },
+  { name: 'Tamil', flag: <><MapPin size={12}/> IN</>, backendIdx: 3 },
+  { name: 'Telugu', flag: <><MapPin size={12}/> IN</>, backendIdx: 0 },
+  { name: 'Arab', flag: <><MapPin size={12}/> SA</>, backendIdx: 2 },
+  { name: 'French', flag: <><MapPin size={12}/> FR</>, backendIdx: 3 },
+  { name: 'Spanish', flag: <><MapPin size={12}/> ES</>, backendIdx: 0 },
+  { name: 'Brazil', flag: <><MapPin size={12}/> BR</>, backendIdx: 2 },
 ];
 
 // Generate the final SOURCES array
@@ -428,7 +428,7 @@ const Watch = () => {
             <span className="watch-details-type">{type === 'movie' ? 'MOVIE' : 'TV SHOW'}</span>
             {details?.release_date && <span>{details.release_date.split('-')[0]}</span>}
             {details?.first_air_date && <span>{details.first_air_date.split('-')[0]}</span>}
-            <span className="watch-details-rating">⭐ {details?.vote_average?.toFixed(1)}</span>
+            <span className="watch-details-rating"><Star size={14} fill="currentColor" style={{ marginRight: '4px', verticalAlign: 'middle' }}/> {details?.vote_average?.toFixed(1)}</span>
           </div>
           <p className="watch-details-overview">{details?.overview}</p>
           

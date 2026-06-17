@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Carousel from '../components/Carousel/Carousel';
 import { fetchUpcoming, fetchTrending, fetchTrendingAll, fetchNowPlaying, getImageUrl } from '../tmdb';
+import { Flame, Globe, Clapperboard, Calendar } from 'lucide-react';
 
 const NewPopular = () => {
   const [upcoming, setUpcoming] = useState([]);
@@ -46,10 +47,10 @@ const NewPopular = () => {
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}
     >
       <h1 style={{ paddingLeft: '4vw', marginBottom: '10px', fontSize: '2rem', fontWeight: 900 }}>New & Popular</h1>
-      <Carousel title="🔥 Trending Right Now" movies={trending} isNumbered={true} />
-      {trendingAll.length > 0 && <Carousel title="🌎 Trending Worldwide" movies={trendingAll} isNumbered={false} />}
-      {nowPlaying.length > 0 && <Carousel title="🎬 In Theaters Now" movies={nowPlaying} isNumbered={false} />}
-      <Carousel title="📅 Coming Soon" movies={upcoming} isNumbered={false} />
+      <Carousel title={<span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Flame size={24} color="#f97316"/> Trending Right Now</span>} movies={trending} isNumbered={true} />
+      {trendingAll.length > 0 && <Carousel title={<span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Globe size={24} color="#3b82f6"/> Trending Worldwide</span>} movies={trendingAll} isNumbered={false} />}
+      {nowPlaying.length > 0 && <Carousel title={<span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Clapperboard size={24} color="#ef4444"/> In Theaters Now</span>} movies={nowPlaying} isNumbered={false} />}
+      <Carousel title={<span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Calendar size={24} color="#8b5cf6"/> Coming Soon</span>} movies={upcoming} isNumbered={false} />
     </motion.div>
   );
 };
