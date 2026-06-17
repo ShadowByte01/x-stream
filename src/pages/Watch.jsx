@@ -21,11 +21,14 @@ const BACKENDS = [
   { urlFuncMovie: (id) => `https://vidsrc.cc/v2/embed/movie/${id}`, urlFuncTv: (id, s, e) => `https://vidsrc.cc/v2/embed/tv/${id}/${s}/${e}`, checkUrl: 'https://vidsrc.cc' },
   // 4: SuperEmbed (fallback)
   { urlFuncMovie: (id) => `https://multiembed.mov/?video_id=${id}&tmdb=1`, urlFuncTv: (id, s, e) => `https://multiembed.mov/?video_id=${id}&tmdb=1&s=${s}&e=${e}`, checkUrl: 'https://multiembed.mov' },
+  // 5: Peachify
+  { urlFuncMovie: (id) => `https://peachify.top/embed/movie/${id}`, urlFuncTv: (id, s, e) => `https://peachify.top/embed/tv/${id}/${s}/${e}`, checkUrl: 'https://peachify.top' },
 ];
 
 // Server display names mapped to backend indices
 const SERVER_CONFIGS = [
   // --- Xstream branded ---
+  { name: 'Peachify', flag: <Zap size={14} fill="#ffb7b2" color="#ffb7b2"/>, backendIdx: 5 },
   { name: 'Xstream', flag: <Zap size={14} />, backendIdx: 0 },
   { name: 'Xstream Pro', flag: <Zap size={14} />, backendIdx: 1 },
   { name: 'Xstream Premium', flag: <Star size={14} fill="currentColor" />, backendIdx: 2 },
@@ -179,6 +182,26 @@ const Watch = () => {
     const timer = setTimeout(saveHistory, 5000);
     return () => clearTimeout(timer);
   }, [user, details, type, id, selectedSeason, selectedEpisode]);
+
+  // Peachify Event Listener
+  useEffect(() => {
+    const handleMessage = (event) => {
+      if (event.origin !== 'https://peachify.top') return;
+      
+      if (event.data?.type === 'MEDIA_DATA') {
+        const peachifyProgress = event.data.data;
+        localStorage.setItem('peachifyProgress', JSON.stringify(peachifyProgress));
+      }
+
+      if (event.data?.type === 'PLAYER_EVENT') {
+        const { event: playerEvent, currentTime, duration } = event.data.data;
+        console.log(`[Peachify] ${playerEvent} at ${currentTime}s of ${duration}s`);
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
 
   // Background Health Check logic
   useEffect(() => {
