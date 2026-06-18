@@ -15,7 +15,7 @@
   [![Vite](https://img.shields.io/badge/Vite-6.0-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)](https://vitejs.dev/)
   [![PWA](https://img.shields.io/badge/PWA_Ready-5B9BD5?style=for-the-badge&logo=pwa&logoColor=white)](https://web.dev/progressive-web-apps/)
   [![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white)](https://www.framer.com/motion/)
-
+  [![No Backend Required](https://img.shields.io/badge/No_Backend-32CD32?style=for-the-badge&logo=serverless&logoColor=white)]()
   [![Live Demo](https://img.shields.io/badge/Live_Demo-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://x-stream-tau.vercel.app/)
 
   <br />

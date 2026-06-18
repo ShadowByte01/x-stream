@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Hero from '../components/Hero/Hero';
 import Carousel from '../components/Carousel/Carousel';
+import { AISection } from '../components/AIRecommend/AIRecommend';
 import { fetchTrending, fetchTopRated, fetchUpcoming, fetchAnimationMovies, fetchTrendingTV, fetchNowPlaying, fetchActionMovies, getImageUrl } from '../tmdb';
 import { Flame, Star, Tv, Clapperboard, Zap, Calendar, Sparkles, Clock, Crown, ListPlus } from 'lucide-react';
 import { useHistory, useMostViewedList, useWatchlist } from '../lib/useStore';
@@ -116,6 +117,8 @@ const Home = () => {
         )}
 
         <Carousel title={<span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Flame size={24} color="#f97316" /> Trending Today</span>} movies={trendingMovies} isNumbered={true} />
+
+        <AISection />
 
         {myListRow.length > 0 && (
           <Carousel
