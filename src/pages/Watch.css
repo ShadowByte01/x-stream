@@ -450,42 +450,123 @@
 
 /* ==================== RESPONSIVE ==================== */
 @media (max-width: 768px) {
-  .player-overlay-top {
-    padding: 12px 12px;
-    flex-wrap: wrap;
-    gap: 8px;
+  .watch-player-section {
+    /* Allow the player to be wider with less padding */
+    max-width: 100%;
   }
-  
+
+  .player-overlay-top {
+    padding: 10px 10px;
+    flex-wrap: wrap;
+    gap: 6px;
+    background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 50%, transparent 100%);
+  }
+
   .overlay-left {
     order: 2;
     width: 100%;
     justify-content: flex-start;
     flex-wrap: wrap;
   }
-  
+
   .overlay-center {
     order: 1;
     width: 100%;
     margin: 0;
-    padding: 0 4px;
+    padding: 0 2px;
   }
-  
+
   .overlay-right {
     order: 3;
     width: 100%;
     justify-content: flex-end;
   }
-  
+
   .now-playing-title {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
-  
+
+  .now-playing-label {
+    font-size: 0.6rem;
+  }
+
   .server-options-menu {
-    width: 280px;
+    width: calc(100vw - 32px);
+    left: -4px;
   }
-  
+
   .server-options-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* Episode selector */
+  .episode-selector {
+    padding: 0 var(--spacing-main);
+    margin: 1.5rem auto;
+  }
+
+  .episode-selector-header h2 {
+    font-size: 1.15rem;
+  }
+
+  .episode-grid {
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 6px;
+  }
+
+  .episode-btn {
+    padding: 10px 6px;
+    font-size: 0.78rem;
+  }
+
+  .season-tab {
+    padding: 6px 14px;
+    font-size: 0.78rem;
+  }
+
+  /* Details section */
+  .watch-details-section {
+    margin: 1.5rem auto;
+    padding: 1.25rem var(--spacing-main);
+    border-radius: 10px;
+  }
+
+  .watch-details-title {
+    font-size: 1.4rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .watch-details-meta {
+    gap: 8px;
+    margin-bottom: 1rem;
+    font-size: 0.82rem;
+  }
+
+  .watch-details-overview {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+  }
+
+  .genre-pill {
+    padding: 4px 10px;
+    font-size: 0.75rem;
+  }
+
+  /* Suggested */
+  .watch-suggested-section {
+    margin: 2rem auto 1.5rem;
+    padding: 0 var(--spacing-main);
+  }
+
+  .suggested-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .watch-suggested-section > div {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 12px;
   }
 }
 
@@ -493,19 +574,28 @@
   .player-overlay-top {
     padding: 8px 8px;
   }
-  
+
   .overlay-icon-btn {
-    width: 36px;
-    height: 36px;
+    width: 34px;
+    height: 34px;
   }
-  
+
   .server-select-trigger {
-    padding: 8px 10px;
+    padding: 6px 8px;
     min-width: 0;
+    gap: 6px;
   }
-  
+
   .trigger-name {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+  }
+
+  .watch-details-title {
+    font-size: 1.2rem;
+  }
+
+  .episode-grid {
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
   }
 }
 

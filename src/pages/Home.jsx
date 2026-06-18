@@ -99,7 +99,7 @@ const Home = () => {
     <>
       {trendingMovies.length > 0 && <Hero movies={trendingMovies.slice(0, 5)} />}
 
-      <div style={{ marginTop: '-10vh', paddingBottom: '10vh' }}>
+      <div className="home-content">
         {continueWatching.length > 0 && (
           <Carousel
             title={<span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}><Clock size={24} color="#22d3ee" /> Continue Watching</span>}

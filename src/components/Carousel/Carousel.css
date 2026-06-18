@@ -30,9 +30,9 @@
   gap: 15px;
   overflow-x: auto;
   scroll-behavior: smooth;
-  padding: 2rem 2rem; /* Added horizontal padding to prevent clipping of numbers and shadows */
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  padding: 2rem 2rem;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   width: 100%;
 }
 
@@ -94,4 +94,67 @@
   right: -2rem;
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
+}
+
+/* ==================== TABLET / MOBILE ==================== */
+@media (max-width: 768px) {
+  .carousel-section {
+    padding: 1rem var(--spacing-main);
+    margin-top: 0.5rem;
+  }
+
+  .carousel-title {
+    font-size: 1.15rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .carousel-slider {
+    gap: 10px;
+    /* Reduce vertical padding so cards don't push layout */
+    padding: 1rem 1rem;
+    /* Faster snap scrolling on touch */
+    scroll-snap-type: x proximity;
+  }
+
+  .standard-wrapper {
+    flex: 0 0 120px;
+  }
+
+  .numbered-wrapper {
+    flex: 0 0 120px;
+    margin-left: 55px;
+  }
+
+  .numbered-wrapper:first-child {
+    margin-left: 60px;
+  }
+
+  /* Hide arrow buttons on touch devices — users swipe instead */
+  .carousel-btn {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .standard-wrapper {
+    flex: 0 0 108px;
+  }
+
+  .numbered-wrapper {
+    flex: 0 0 108px;
+    margin-left: 50px;
+  }
+
+  .numbered-wrapper:first-child {
+    margin-left: 55px;
+  }
+
+  .carousel-slider {
+    gap: 8px;
+    padding: 1rem 0.75rem;
+  }
+
+  .carousel-title {
+    font-size: 1.05rem;
+  }
 }

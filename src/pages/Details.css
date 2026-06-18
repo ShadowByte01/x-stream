@@ -784,46 +784,169 @@
 
 /* ==================== RESPONSIVE ==================== */
 @media (max-width: 900px) {
+  .details-hero {
+    min-height: auto;
+    padding-top: calc(var(--nav-height) + 20px);
+    align-items: flex-start;
+  }
+
   .details-hero-layout {
     flex-direction: column;
     align-items: flex-start;
+    gap: 1.5rem;
   }
-  
+
   .details-poster-wrap {
     flex: 0 0 auto;
   }
 
   .details-poster {
-    width: 160px;
+    width: 150px;
   }
 
   .details-title {
-    font-size: 2.5rem;
+    font-size: 2rem;
+    line-height: 1.1;
+    margin-bottom: 0.75rem;
   }
 
   .info-grid {
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   }
+
+  .details-actions {
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .back-button {
+    top: calc(var(--nav-height) + 8px);
+    left: var(--spacing-main);
+    padding: 6px 12px;
+    font-size: 0.82rem;
+  }
 }
 
-@media (max-width: 600px) {
-  .details-poster-wrap {
-    display: none;
-  }
-  
-  .details-title {
-    font-size: 2rem;
+@media (max-width: 768px) {
+  .details-hero {
+    background-position: center 15%;
   }
 
-  .similar-grid {
-    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  .details-hero-content {
+    padding: 0 var(--spacing-main) 2rem var(--spacing-main);
+  }
+
+  .details-title {
+    font-size: 1.65rem;
+  }
+
+  .details-overview {
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .details-meta {
+    gap: 6px;
+    margin-bottom: 1rem;
+  }
+
+  .meta-chip {
+    padding: 4px 10px;
+    font-size: 0.75rem;
+  }
+
+  .genre-tag {
+    padding: 4px 12px;
+    font-size: 0.75rem;
+  }
+
+  .rating-section {
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .rating-ring {
+    width: 52px;
+    height: 52px;
+  }
+
+  .rating-number {
+    font-size: 0.95rem;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .cast-card {
+    flex: 0 0 90px;
+  }
+
+  .cast-image, .cast-placeholder {
+    width: 76px;
+    height: 76px;
   }
 
   .trailer-grid {
     grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .similar-grid {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .details-content-body {
+    padding: 1.5rem var(--spacing-main);
   }
 
   .trailer-thumb-info {
     padding: 8px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .details-title {
+    font-size: 1.4rem;
+  }
+
+  .details-poster {
+    width: 120px;
+  }
+
+  .details-tagline {
+    font-size: 0.85rem;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .details-actions {
+    flex-direction: column;
+  }
+
+  .details-actions .glow-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cast-card {
+    flex: 0 0 76px;
+  }
+
+  .cast-image, .cast-placeholder {
+    width: 64px;
+    height: 64px;
+  }
+
+  .cast-name {
+    font-size: 0.78rem;
+  }
+
+  .trailer-thumb-name {
+    font-size: 0.78rem;
   }
 }

@@ -19,6 +19,9 @@
   border-radius: 16px;
   box-shadow: 0 25px 80px rgba(0, 0, 0, 0.8);
   overflow: hidden;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .settings-header {
@@ -54,8 +57,9 @@
 
 .settings-body {
   padding: 1.5rem;
-  max-height: 70vh;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  flex: 1;
 }
 
 .settings-section {
@@ -287,4 +291,69 @@
 .settings-install-btn:disabled {
   opacity: 0.45;
   cursor: not-allowed;
+}
+
+/* ==================== MOBILE ==================== */
+@media (max-width: 768px) {
+  .settings-modal {
+    width: 94%;
+    max-width: 100%;
+    max-height: 80vh;
+    border-radius: 14px 14px 0 0;
+    /* Slide up from bottom on mobile */
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: none;
+  }
+
+  .settings-header {
+    padding: 1rem 1.25rem;
+  }
+
+  .settings-header h2 {
+    font-size: 1.05rem;
+  }
+
+  .settings-body {
+    padding: 1rem 1.25rem 1.5rem;
+  }
+
+  .settings-section {
+    margin-bottom: 1.5rem;
+  }
+
+  .color-picker-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .swatch-inner {
+    width: 28px;
+    height: 28px;
+  }
+
+  .settings-confirm-actions {
+    flex-direction: column;
+  }
+
+  .settings-confirm-actions button {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 420px) {
+  .settings-modal {
+    max-height: 85vh;
+  }
+
+  .color-picker-grid {
+    gap: 6px;
+  }
+
+  .swatch-label {
+    font-size: 0.55rem;
+  }
 }

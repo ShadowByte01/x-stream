@@ -8,9 +8,9 @@ const MobileNav = () => {
 
   const navItems = [
     { path: '/', icon: Home, label: 'Home' },
-    { path: '/search', icon: Search, label: 'Search' },
     { path: '/movies', icon: Film, label: 'Movies' },
-    { path: '/profile', icon: User, label: 'My Xstream' },
+    { path: '/search', icon: Search, label: 'Search' },
+    { path: '/profile', icon: User, label: 'Profile' },
   ];
 
   return (

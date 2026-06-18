@@ -23,7 +23,10 @@
 
   /* Layout */
   --nav-height: 72px;
+  --nav-height-mobile: 56px;
   --spacing-main: 4vw;
+  --spacing-main-mobile: 16px;
+  --mobile-nav-height: 64px;
   --radius: 14px;
   --radius-sm: 10px;
 
@@ -145,6 +148,14 @@ body::before {
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
+/* Home content — overlaps hero slightly to look seamless */
+.home-content {
+  margin-top: -8vh;
+  padding-bottom: 4vh;
+  position: relative;
+  z-index: 3;
+}
+
 /* Line clamps */
 .line-clamp-1, .line-clamp-2, .line-clamp-3 {
   display: -webkit-box;
@@ -160,6 +171,99 @@ body::before {
   z-index: 1;
 }
 
+/* ==================== MOBILE GLOBAL OVERRIDES ==================== */
 @media (max-width: 768px) {
-  .app-container { padding-bottom: 72px; }
+  :root {
+    --spacing-main: var(--spacing-main-mobile);
+    --nav-height: var(--nav-height-mobile);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    /* Prevent rubber-band scroll jank & overflow bugs on iOS */
+    overflow-x: hidden;
+    /* Disable iOS tap highlight */
+    -webkit-tap-highlight-color: transparent;
+    /* Improve touch scrolling */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .app-container {
+    padding-bottom: calc(var(--mobile-nav-height) + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(var(--mobile-nav-height) + safe-area-inset-bottom);
+  }
+
+  /* Buttons: bigger touch targets on mobile */
+  button, a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Inputs: prevent iOS zoom-on-focus by ensuring >=16px font */
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+
+  /* Buttons: scale down glow/accent buttons on small screens */
+  .glow-button {
+    padding: 0.6rem 1.25rem;
+    font-size: 0.85rem;
+    gap: 0.4rem;
+  }
+
+  .accent-button {
+    padding: 0.6rem 1.25rem;
+    font-size: 0.85rem;
+  }
+
+  /* Headings scale down cleanly */
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.25rem; }
+
+  /* Any fixed-position overlays respect safe areas */
+  .navbar {
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-top: safe-area-inset-top;
+  }
+
+  /* All pages use .page-container with inline padding — override for mobile */
+  .page-container {
+    padding-top: calc(var(--nav-height) + 12px) !important;
+    padding-bottom: calc(var(--mobile-nav-height) + 24px) !important;
+  }
+
+  /* Grid pages use inline gridTemplateColumns — make them work on small screens */
+  /* The inline minmax(150-155px) works fine because auto-fill will shrink columns
+     but we need padding to use our spacing variable instead of hardcoded 4vw */
+  [style*="padding: 0 4vw"],
+  [style*="padding:0 4vw"],
+  [style*="4vw"] {
+    padding-left: var(--spacing-main) !important;
+    padding-right: var(--spacing-main) !important;
+  }
+
+  [style*="paddingLeft: '4vw'"],
+  [style*="padding-left: 4vw"] {
+    padding-left: var(--spacing-main) !important;
+  }
+
+  [style*="padding: '0 4vw'"] {
+    padding-left: var(--spacing-main) !important;
+    padding-right: var(--spacing-main) !important;
+  }
+
+  /* Home content — less overlap on mobile */
+  .home-content {
+    margin-top: -4vh;
+    padding-bottom: 2vh;
+  }
+
+  /* Scale down carousel title icons on mobile */
+  .carousel-title svg {
+    width: 18px;
+    height: 18px;
+  }
 }

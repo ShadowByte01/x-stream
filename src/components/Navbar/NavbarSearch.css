@@ -61,6 +61,8 @@
   flex-direction: column;
   z-index: 1000;
   backdrop-filter: blur(10px);
+  max-height: 60vh;
+  overflow-y: auto;
 }
 
 .search-dropdown-item {
@@ -85,12 +87,14 @@
   height: 60px;
   object-fit: cover;
   border-radius: 4px;
+  flex-shrink: 0;
 }
 
 .suggestion-info {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  min-width: 0;
 }
 
 .suggestion-title {
@@ -98,9 +102,40 @@
   font-weight: 600;
   color: #fff;
   margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .suggestion-year {
   font-size: 0.8rem;
   color: #aaa;
+}
+
+/* ==================== MOBILE ==================== */
+@media (max-width: 768px) {
+  /* Expand the search to fill available space when active */
+  .search-form.active {
+    width: min(60vw, 240px);
+  }
+
+  .search-input::placeholder {
+    font-size: 0.85rem;
+  }
+
+  /* Dropdown spans most of the screen, anchored to the right of the icon */
+  .search-dropdown {
+    width: calc(100vw - 32px);
+    right: -8px;
+    margin-top: 8px;
+  }
+
+  .search-dropdown-item {
+    padding: 12px 14px;
+    gap: 12px;
+  }
+
+  .suggestion-title {
+    font-size: 0.9rem;
+  }
 }
