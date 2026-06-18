@@ -4,6 +4,7 @@ import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import MobileNav from './components/MobileNav/MobileNav';
+import ConsentBanner from './components/ConsentBanner/ConsentBanner';
 import Home from './pages/Home';
 import Series from './pages/Series';
 import Movies from './pages/Movies';
@@ -12,52 +13,55 @@ import NewPopular from './pages/NewPopular';
 import Search from './pages/Search';
 import Details from './pages/Details';
 import Watch from './pages/Watch';
-import Auth from './pages/Auth';
-import Verify from './pages/Verify';
 import Profile from './pages/Profile';
 import Person from './pages/Person';
 import Company from './pages/Company';
-import { AuthProvider } from './context/AuthContext';
 import IntroSplash from './components/IntroSplash/IntroSplash';
+import * as store from './lib/storage';
 
 function AppContent() {
   const [showIntro, setShowIntro] = useState(true);
+  const location = useLocation();
 
   useEffect(() => {
-    // Only show intro once per session
-    const hasSeenIntro = sessionStorage.getItem('hasSeenIntro');
-    if (hasSeenIntro) {
+    const prefs = store.getPrefs();
+    if (prefs.hasSeenIntro) {
       setShowIntro(false);
     }
   }, []);
 
   const handleIntroComplete = () => {
     setShowIntro(false);
-    sessionStorage.setItem('hasSeenIntro', 'true');
+    store.setPref('hasSeenIntro', true);
   };
 
-  // Load saved accent color
+  // Apply saved accent color + keep --accent-rgb in sync
   useEffect(() => {
-    const savedColor = localStorage.getItem('xstream_accent_color');
-    if (savedColor) {
-      document.documentElement.style.setProperty('--accent-color', savedColor);
-    }
+    const applyAccent = (hex) => {
+      const rgb = hexToRgb(hex) || [229, 9, 20];
+      document.documentElement.style.setProperty('--accent-color', hex);
+      document.documentElement.style.setProperty('--accent-rgb', rgb.join(' '));
+    };
+    const prefs = store.getPrefs();
+    applyAccent(prefs.accentColor || '#E50914');
+    const unsub = store.subscribe(() => {
+      const p = store.getPrefs();
+      applyAccent(p.accentColor || '#E50914');
+    });
+    return unsub;
   }, []);
 
-  const location = useLocation();
   const isWatchPage = location.pathname.startsWith('/watch');
-  const isAuthPage = location.pathname.startsWith('/login');
 
   return (
     <div className="app-container">
       {showIntro && <IntroSplash onComplete={handleIntroComplete} />}
-      {!isWatchPage && !isAuthPage && <Navbar />}
-      
+      <ConsentBanner />
+      {!isWatchPage && <Navbar />}
+
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Auth />} />
-          <Route path="/verify" element={<Verify />} />
           <Route path="/series" element={<Series />} />
           <Route path="/movies" element={<Movies />} />
           <Route path="/anime" element={<Anime />} />
@@ -71,18 +75,19 @@ function AppContent() {
         </Routes>
       </AnimatePresence>
 
-      {!isWatchPage && !isAuthPage && <Footer />}
-      {!isWatchPage && !isAuthPage && <MobileNav />}
+      {!isWatchPage && <Footer />}
+      {!isWatchPage && <MobileNav />}
     </div>
   );
 }
 
+function hexToRgb(hex) {
+  const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return m ? [parseInt(m[1], 16), parseInt(m[2], 16), parseInt(m[3], 16)] : null;
+}
+
 function App() {
-  return (
-    <AuthProvider>
-      <AppContent />
-    </AuthProvider>
-  );
+  return <AppContent />;
 }
 
 export default App;

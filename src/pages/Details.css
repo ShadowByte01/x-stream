@@ -261,6 +261,244 @@
   text-decoration: none;
 }
 
+/* Like / List active states */
+.details-actions .list-btn.in-list,
+.details-actions .like-btn.liked {
+  background: var(--accent-color);
+  color: #fff;
+  border-color: var(--accent-color);
+}
+
+/* Star Rating */
+.star-rating {
+  display: flex;
+  gap: 6px;
+}
+
+.star-btn {
+  background: none;
+  border: none;
+  color: #555;
+  cursor: pointer;
+  padding: 2px;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.star-btn:hover { transform: scale(1.2); }
+.star-btn.filled {
+  color: var(--accent-color);
+  filter: drop-shadow(0 0 6px var(--accent-color));
+}
+
+/* Your Rating Section */
+.your-rating-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.your-rating-label {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ==================== TRAILERS & VIDEOS ==================== */
+.trailer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.trailer-player-container {
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.trailer-player-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.trailer-player-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #ccc;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 80%;
+}
+
+.trailer-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.trailer-close-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+.trailer-player-iframe-wrap {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 */
+}
+
+.trailer-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.trailer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.trailer-thumb {
+  cursor: pointer;
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.trailer-thumb:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.trailer-thumb.active {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.2);
+}
+
+.trailer-thumb-img {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #111;
+}
+
+.trailer-thumb-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.trailer-thumb:hover .trailer-thumb-img img {
+  transform: scale(1.08);
+}
+
+.trailer-thumb-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.trailer-thumb:hover .trailer-thumb-overlay {
+  opacity: 1;
+}
+
+.trailer-play-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(229, 9, 20, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(229, 9, 20, 0.5);
+  transform: scale(0.8);
+  transition: transform 0.3s ease;
+  padding-left: 2px;
+}
+
+.trailer-thumb:hover .trailer-play-btn {
+  transform: scale(1);
+}
+
+.trailer-type-badge,
+.trailer-official-badge {
+  position: absolute;
+  top: 8px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.trailer-type-badge {
+  left: 8px;
+  background: rgba(229, 9, 20, 0.85);
+  color: #fff;
+}
+
+.trailer-official-badge {
+  right: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ddd;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.trailer-thumb-info {
+  padding: 10px 12px;
+}
+
+.trailer-thumb-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #ddd;
+  margin-bottom: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.trailer-thumb-meta {
+  font-size: 0.72rem;
+  color: #666;
+}
+
 /* ==================== CONTENT BODY ==================== */
 .details-content-body {
   padding: 2rem 4vw;
@@ -579,5 +817,13 @@
 
   .similar-grid {
     grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  }
+
+  .trailer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .trailer-thumb-info {
+    padding: 8px 10px;
   }
 }

@@ -163,3 +163,71 @@
   color: #000;
   transform: scale(1.1);
 }
+
+/* Hover trailer preview */
+.movie-trailer-preview {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  object-fit: cover;
+  transform: scale(1.25);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Continue watching progress */
+.movie-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  z-index: 6;
+}
+
+.movie-progress-bar {
+  height: 100%;
+  background: var(--accent-color);
+  box-shadow: 0 0 10px var(--accent-color);
+  transition: width 0.4s var(--ease-out);
+}
+
+/* Remove button (used in Continue Watching / My List rows) */
+.movie-remove-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 12px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 7;
+  opacity: 0;
+  transition: background 0.2s ease, opacity 0.2s ease;
+}
+
+.movie-card:hover .movie-remove-btn {
+  opacity: 1;
+}
+
+.movie-remove-btn:hover {
+  background: #e50914;
+}
+
+/* Most-viewed corner badge sits top-left; nudge rating to top-right when present */
+.movie-card:has(.mv-corner) .movie-rating-badge {
+  top: auto;
+  bottom: 8px;
+  left: 8px;
+}

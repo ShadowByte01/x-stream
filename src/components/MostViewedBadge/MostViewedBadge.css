@@ -1,0 +1,73 @@
+.mv-badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #fff;
+  background: linear-gradient(110deg, #ff7a18, #ff2d2d 55%, #c40d0d);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 18px rgba(255, 45, 45, 0.45), 0 0 0 1px rgba(255, 122, 24, 0.4) inset;
+  overflow: hidden;
+  z-index: 6;
+  text-transform: uppercase;
+}
+
+.mv-badge-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.55) 50%, transparent 70%);
+  transform: translateX(-130%);
+  animation: mv-shine 2.6s ease-in-out infinite;
+}
+
+@keyframes mv-shine {
+  0% { transform: translateX(-130%); }
+  55%, 100% { transform: translateX(130%); }
+}
+
+.mv-flame {
+  filter: drop-shadow(0 0 4px rgba(255, 220, 120, 0.9));
+  animation: mv-flicker 1.6s ease-in-out infinite;
+}
+
+@keyframes mv-flicker {
+  0%, 100% { transform: scale(1) rotate(-2deg); opacity: 1; }
+  50% { transform: scale(1.18) rotate(3deg); opacity: 0.85; }
+}
+
+/* ---- corner: pinned to card thumbnail ---- */
+.mv-corner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 0 0 10px 0;
+  padding: 5px 9px 5px 7px;
+  font-size: 9px;
+  line-height: 1;
+  max-width: 100%;
+}
+
+.mv-corner .mv-label {
+  white-space: nowrap;
+}
+
+/* ---- ribbon: across bottom of a poster ---- */
+.mv-ribbon {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  justify-content: center;
+  padding: 6px 8px;
+  font-size: 10px;
+  text-align: center;
+}
+
+/* ---- pill: inline for hero/details ---- */
+.mv-pill {
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 12px;
+}

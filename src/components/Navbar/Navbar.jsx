@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Search, Bell, User, LogOut, Settings } from 'lucide-react';
+import { Search, Bell, User, Settings, Bookmark } from 'lucide-react';
 import { searchMulti, getImageUrl } from '../../tmdb';
-import { useAuth } from '../../context/AuthContext';
 import SettingsModal from '../SettingsModal/SettingsModal';
 import './Navbar.css';
 import './NavbarSearch.css';
@@ -13,19 +12,23 @@ const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
-  const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
-  const { user, signOut } = useAuth();
 
-  // Load saved accent color on mount
+  // Keyboard "/" focuses search
   useEffect(() => {
-    const savedColor = localStorage.getItem('xstream_accent_color');
-    if (savedColor) {
-      document.documentElement.style.setProperty('--accent-color', savedColor);
-    }
+    const onKey = (e) => {
+      if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+        e.preventDefault();
+        const input = document.querySelector('.search-input');
+        input?.focus();
+        setIsSearchActive(true);
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
   }, []);
 
   useEffect(() => {
@@ -34,10 +37,10 @@ const Navbar = () => {
         try {
           const results = await searchMulti(searchQuery);
           const filtered = results
-            .filter(item => item.media_type === 'movie' || item.media_type === 'tv')
-            .filter(item => item.poster_path || item.backdrop_path)
-            .slice(0, 5)
-            .map(item => ({
+            .filter((item) => item.media_type === 'movie' || item.media_type === 'tv')
+            .filter((item) => item.poster_path || item.backdrop_path)
+            .slice(0, 6)
+            .map((item) => ({
               id: item.id,
               media_type: item.media_type,
               title: item.title || item.name,
@@ -51,8 +54,7 @@ const Navbar = () => {
       } else {
         setSuggestions([]);
       }
-    }, 500);
-
+    }, 350);
     return () => clearTimeout(delayDebounceFn);
   }, [searchQuery]);
 
@@ -74,10 +76,7 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 40);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -88,7 +87,7 @@ const Navbar = () => {
         <div className="navbar-container">
           <div className="navbar-left">
             <Link to="/" className="logo-link">
-              <img src="/logo.png" alt="X-STREAM" className="navbar-logo-img" />
+              <span className="navbar-logo-text">X<span className="logo-accent">stream</span></span>
             </Link>
             <ul className="nav-links">
               <li className={location.pathname === '/' ? 'active' : ''}><Link to="/">Home</Link></li>
@@ -98,28 +97,29 @@ const Navbar = () => {
               <li className={location.pathname === '/new-popular' ? 'active' : ''}><Link to="/new-popular">New & Popular</Link></li>
             </ul>
           </div>
+
           <div className="navbar-right">
             <div className="search-container">
               <form onSubmit={handleSearchSubmit} className={`search-form ${isSearchActive ? 'active' : ''}`}>
                 <Search className="nav-icon search-icon" onClick={() => setIsSearchActive(!isSearchActive)} />
-                <input 
-                  type="text" 
-                  placeholder="Titles, people, genres" 
+                <input
+                  type="text"
+                  placeholder="Search titles…  (press /)"
                   className={`search-input ${isSearchActive ? 'active' : ''}`}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onBlur={() => {
                     setTimeout(() => {
                       if (!searchQuery) setIsSearchActive(false);
-                    }, 200);
+                    }, 180);
                   }}
                 />
               </form>
               {suggestions.length > 0 && isSearchActive && (
                 <div className="search-dropdown">
                   {suggestions.map((suggestion) => (
-                    <div 
-                      key={suggestion.id} 
+                    <div
+                      key={suggestion.id}
                       className="search-dropdown-item"
                       onClick={() => handleSuggestionClick(suggestion.media_type, suggestion.id)}
                     >
@@ -134,42 +134,12 @@ const Navbar = () => {
               )}
             </div>
 
-            {/* Settings gear */}
-            <Settings 
-              className="nav-icon settings-icon" 
-              onClick={() => setShowSettings(true)}
-              style={{ cursor: 'pointer' }}
-            />
-
-            <Bell className="nav-icon" />
+            <Bookmark className="nav-icon" title="My List" onClick={() => navigate('/profile')} style={{ cursor: 'pointer' }} />
+            <Settings className="nav-icon settings-icon" onClick={() => setShowSettings(true)} style={{ cursor: 'pointer' }} />
             <div className="nav-profile">
-              {user ? (
-                <div className="profile-menu-container" 
-                     onMouseEnter={() => setShowProfileMenu(true)}
-                     onMouseLeave={() => setShowProfileMenu(false)}>
-                  <div className="profile-avatar">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png" alt="Profile" />
-                  </div>
-                  {showProfileMenu && (
-                    <div className="profile-dropdown">
-                      <div className="dropdown-arrow"></div>
-                      <div className="dropdown-item" onClick={() => navigate('/profile')}>
-                        <User size={16} />
-                        <span>My Profile</span>
-                      </div>
-                      <div className="dropdown-divider"></div>
-                      <div className="dropdown-item sign-out" onClick={() => signOut()}>
-                        <LogOut size={16} />
-                        <span>Sign out of X-STREAM</span>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <button className="nav-signin-btn" onClick={() => navigate('/login')}>
-                  Sign In
-                </button>
-              )}
+              <button className="nav-signin-btn" onClick={() => navigate('/profile')} title="My Xstream">
+                <User size={16} />
+              </button>
             </div>
           </div>
         </div>
